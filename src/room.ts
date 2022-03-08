@@ -3,6 +3,7 @@ import { Server, Socket } from 'socket.io'
 export enum State {
 	LOBBY = 'lobby',
 	PLANNING = 'planning',
+	PLANNING_READY = 'planning_ready',
 	INGAME = 'ingame',
 	POSTGAME = 'postgame'
 }
