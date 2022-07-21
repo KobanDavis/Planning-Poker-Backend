@@ -1,12 +1,19 @@
 import http from 'http'
 import { Server } from 'socket.io'
+import Jira from './Jira'
 import Room from './room'
 import RoomManager from './RoomManager'
 
 require('dotenv').config()
 
-const server = http.createServer((_, res) => {
-	res.write('Online')
+const { JIRA_USERNAME, JIRA_PASSWORD } = process.env
+
+const server = http.createServer(async (_, res) => {
+	if (!JIRA_USERNAME || !JIRA_PASSWORD) {
+		throw new Error('Credentials missing in .env')
+	}
+	const client = new Jira(JIRA_USERNAME, JIRA_PASSWORD)
+	res.write(JSON.stringify(await client.getIssue('VCX-325')))
 	res.end()
 })
 

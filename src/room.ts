@@ -1,4 +1,5 @@
 import { Server, Socket } from 'socket.io'
+import Jira from './Jira'
 
 export enum State {
 	LOBBY = 'lobby',
@@ -22,6 +23,7 @@ export interface Card {
 }
 
 class Room {
+	private _jiraClient: Jira | undefined
 	public state: State = State.LOBBY
 	public users: User[] = []
 	public cards: Map<string, Card> = new Map([
